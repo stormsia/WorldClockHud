@@ -41,16 +41,12 @@ jobs:
       - name: Build MSI Installer
         shell: powershell
         run: |
-          Push-Location installer
 
-          # Убираем префикс 'v' из тега (например, 'v1.0.0' станет '1.0.0')
           $version = "${{ github.ref_name }}".TrimStart('v')
           if (-not $version) { $version = "1.0.0" } # Заглушка, если запуск не по тегу
 
-          # Собираем установщик и передаем переменную Version
-          wix build WorldClockHud.wxs -d Version=$version -o ..\dist\WorldClockHud.msi
+          wix build installer\WorldClockHud.wxs -d Version=$version -o dist\WorldClockHud.msi
 
-          Pop-Location
       - name: Upload Release Assets
         uses: softprops/action-gh-release@v2
         with:
