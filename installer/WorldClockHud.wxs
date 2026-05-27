@@ -3,16 +3,17 @@
   <Package
     Name="WorldClockHud"
     Manufacturer="stormsia"
-    Version="1.0.0"
+    Version="$(var.Version)"
     UpgradeCode="8D3E42A8-A2E4-4299-8D75-7C6B37C2F2D9"
     Scope="perUser">
+
 
     <MajorUpgrade
       DowngradeErrorMessage="A newer version of WorldClockHud is already installed." />
 
+
     <MediaTemplate EmbedCab="yes" />
 
-    <!-- Icon for Add/Remove Programs -->
     <Icon Id="AppIcon" SourceFile="..\icon.ico" />
     <Property Id="ARPPRODUCTICON" Value="AppIcon" />
     <Property Id="ARPHELPLINK" Value="https://github.com/stormsia/WorldClockHud" />
@@ -20,57 +21,66 @@
     <Property Id="ARPURLUPDATEINFO" Value="https://github.com/stormsia/WorldClockHud/releases" />
     <Property Id="ARPCONTACT" Value="stormsia" />
 
-    <!-- Install directory -->
+
     <StandardDirectory Id="LocalAppDataFolder">
-      <Directory Id="INSTALLFOLDER" Name="WorldClockHud">
 
-        <Component Id="MainExecutable" Guid="A7F3B1C2-9D4E-4A58-B6C0-3E8F7D2A1B09">
-          <File Id="WorldClockHudExe"
-                Source="..\dist\WorldClockHud.exe"
-                KeyPath="yes" />
-
-          <!-- Auto-start on login via Registry -->
-          <RegistryValue
-            Root="HKCU"
-            Key="Software\Microsoft\Windows\CurrentVersion\Run"
-            Name="WorldClockHud"
-            Type="string"
-            Value="[INSTALLFOLDER]WorldClockHud.exe" />
-        </Component>
-
-        <Component Id="AppIcon" Guid="C2D4E6F8-1A3B-5C7D-9E0F-2B4A6C8D0E1F">
-          <File Id="IconFile"
-                Source="..\icon.ico"
-                KeyPath="yes" />
-        </Component>
-
-      </Directory>
+      <Directory Id="INSTALLFOLDER" Name="WorldClockHud" />
     </StandardDirectory>
 
-    <!-- Start Menu shortcut -->
     <StandardDirectory Id="ProgramMenuFolder">
-      <Component Id="StartMenuShortcut" Guid="D5E6F7A8-B9C0-1D2E-3F4A-5B6C7D8E9F00">
+
+      <Directory Id="ApplicationProgramsFolder" Name="WorldClockHud" />
+    </StandardDirectory>
+
+    <ComponentGroup Id="ProductComponents">
+      
+
+      <Component Id="MainExecutable" Directory="INSTALLFOLDER" Guid="A7F3B1C2-9D4E-4A58-B6C0-3E8F7D2A1B09">
+        <File Id="WorldClockHudExe"
+              Source="..\dist\WorldClockHud.exe"
+              KeyPath="yes" />
+
+
+        <RegistryValue
+          Root="HKCU"
+          Key="Software\Microsoft\Windows\CurrentVersion\Run"
+          Name="WorldClockHud"
+          Type="string"
+          Value="&quot;[INSTALLFOLDER]WorldClockHud.exe&quot;" />
+      </Component>
+
+
+      <Component Id="AppIconComponent" Directory="INSTALLFOLDER" Guid="C2D4E6F8-1A3B-5C7D-9E0F-2B4A6C8D0E1F">
+
+        <File Id="IconFile"
+              Source="..\icon.ico"
+              KeyPath="yes" />
+      </Component>
+
+      <Component Id="StartMenuShortcut" Directory="ApplicationProgramsFolder" Guid="D5E6F7A8-B9C0-1D2E-3F4A-5B6C7D8E9F00">
         <Shortcut Id="AppShortcut"
                   Name="WorldClockHud"
                   Description="A transparent always-on-top world clock HUD"
                   Target="[INSTALLFOLDER]WorldClockHud.exe"
                   WorkingDirectory="INSTALLFOLDER"
                   Icon="AppIcon" />
-        <RemoveFolder Id="CleanStartMenu" On="uninstall" />
+
+        <RemoveFolder Id="CleanStartMenu" Directory="ApplicationProgramsFolder" On="uninstall" />
+        
+
         <RegistryValue Root="HKCU"
-                       Key="Software\WorldClockHud"
+                       Key="Software\stormsia\WorldClockHud"
                        Name="StartMenuShortcut"
                        Type="integer"
                        Value="1"
                        KeyPath="yes" />
       </Component>
-    </StandardDirectory>
+      
+    </ComponentGroup>
 
-    <!-- Features -->
+
     <Feature Id="Complete" Level="1">
-      <ComponentRef Id="MainExecutable" />
-      <ComponentRef Id="AppIcon" />
-      <ComponentRef Id="StartMenuShortcut" />
+      <ComponentGroupRef Id="ProductComponents" />
     </Feature>
 
   </Package>
