@@ -35,8 +35,11 @@ jobs:
       - name: Install WiX
         run: dotnet tool install --global wix
 
+      - name: Accept WiX OSMF EULA
+        run: wix eula accept wix7
+
       - name: Build MSI
-        run: wix build installer/WorldClockHud.wxs -o dist/WorldClockHud.msi
+        run: wix build -acceptEula wix7 installer/WorldClockHud.wxs -o dist/WorldClockHud.msi
 
       - name: Upload Release Assets
         uses: softprops/action-gh-release@v2
