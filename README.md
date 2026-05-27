@@ -1,67 +1,89 @@
-# WorldClockHud
+<div align="center">
 
-A transparent, always-on-top world clock HUD for Windows.
+# 🕰️ WorldClockHUD
 
-![WorldClockHud](https://github.com/stormsia/WorldClockHud/raw/main/icon.ico)
+**A sleek, transparent, always-on-top world clock HUD for Windows.**
 
-## Features
+<img src="https://raw.githubusercontent.com/stormsia/WorldClockHud/main/icon.ico" alt="WorldClockHUD Icon" width="128" />
 
-- **Multiple Timezones** — Display clocks for any timezone in the world
-- **Always on Top** — Stays visible above all windows (toggleable from system tray)
-- **Desktop Mode** — Can also sit below all windows on your desktop
-- **Draggable** — Click and drag to reposition anywhere on screen
-- **System Tray** — Minimize to tray with quick-access controls
-- **Auto Start** — Automatically launches on Windows startup (when installed via MSI)
-- **Glassmorphism UI** — Semi-transparent dark glass aesthetic
-- **Persistent Settings** — Your timezone selection and window position are saved
+[![Latest Release](https://img.shields.io/github/v/release/stormsia/WorldClockHud?color=blue&style=for-the-badge)](https://github.com/stormsia/WorldClockHud/releases/latest)
+[![Platform](https://img.shields.io/badge/Platform-Windows-0078D6?style=for-the-badge&logo=windows)](https://github.com/stormsia/WorldClockHud/releases/latest)
+[![License](https://img.shields.io/github/license/stormsia/WorldClockHud?style=for-the-badge)](LICENSE)
 
-## Installation
+</div>
 
-### MSI Installer (Recommended)
+---
 
-Download the latest `.msi` from [Releases](https://github.com/stormsia/WorldClockHud/releases) and run it. The app will be installed and configured to start automatically on login.
+## 📥 Download & Install
 
-### Portable
+### 🌟 Recommended: MSI Installer
+For the best experience, we highly recommend using the standard MSI installer. 
 
-Download `WorldClockHud.exe` from [Releases](https://github.com/stormsia/WorldClockHud/releases) and run it directly. No installation required.
+> [!IMPORTANT]
+> **[⬇️ Download WorldClockHUD Installer (.msi)](https://github.com/stormsia/WorldClockHud/releases/latest/download/WorldClockHud.msi)**  
+> *Or visit the [Latest Release page](https://github.com/stormsia/WorldClockHud/releases/latest) to see all downloads.*
 
-### From Source
+**Benefits of the Installer:**
+- 🚀 **Auto-Start**: Automatically launches when Windows starts (so your clocks are always there).
+- 🪄 **Start Menu Integration**: Adds convenient shortcuts.
+- ♻️ **Clean Management**: Easily update or uninstall through standard Windows settings.
+
+### 📦 Portable Version
+Don't want to install anything? You can just download the standalone executable:
+- **[⬇️ Download Portable (.exe)](https://github.com/stormsia/WorldClockHud/releases/latest/download/WorldClockHud.exe)**
+
+---
+
+## ✨ Features
+
+- 🌍 **Multiple Timezones** — Display clocks for any timezone in the world.
+- 📌 **Always on Top** — Stays visible above all windows (can be toggled from the system tray).
+- 🖥️ **Desktop Mode** — Option to sit below all windows, acting like a desktop widget.
+- 🖐️ **Draggable** — Simply click and drag anywhere on your screen.
+- ⚙️ **System Tray** — Unobtrusive, minimizes to tray with quick-access controls.
+- 🎨 **Glassmorphism UI** — Beautiful, modern semi-transparent dark glass aesthetic.
+- 💾 **Persistent Settings** — Remembers your timezones and exact window position.
+
+---
+
+## 🛠️ Usage
+
+1. **Move the HUD**: Click anywhere on the HUD and drag it to your desired location.
+2. **Settings Menu**: Right-click the HUD or the system tray icon to access settings and manage timezones.
+3. **Toggle Visibility**: Left-click the system tray icon to quickly hide or show the HUD.
+
+---
+
+## ⚙️ Advanced
+
+### Configuration
+
+Settings are stored locally in `%APPDATA%\WorldClockHud\config.json`:
+- `timezones`: List of timezone identifiers (e.g. `"UTC"`, `"America/New_York"`)
+- `position`: Saved `[x, y]` window position on your monitor
+- `always_on_top`: Boolean `true` or `false`
+
+### Building From Source
 
 ```bash
+# Clone the repository
 git clone https://github.com/stormsia/WorldClockHud.git
 cd WorldClockHud
-pip install pyqt6 pytz psutil
+
+# Install required dependencies
+pip install uv
+uv pip install -r requirements.txt --system
+
+# Run directly
 python main.py
-```
 
-## Build
-
-```bash
-pip install pyinstaller pyqt6 pytz psutil
+# Or build the executable
 pyinstaller WorldClockHUD.spec
 ```
 
-The executable will be created at `dist/WorldClockHud.exe`.
+---
 
-## Configuration
+## 📝 License & Author
 
-Settings are stored in `%APPDATA%\WorldClockHud\config.json`:
-
-- **timezones** — List of timezone identifiers (e.g. `"UTC"`, `"America/New_York"`)
-- **position** — `[x, y]` window position
-- **always_on_top** — `true` / `false`
-
-## Usage
-
-- **Right-click** the HUD or tray icon for options
-- **Left-click** tray icon to show/hide
-- **Drag** the HUD to reposition
-- **Settings** dialog to add/remove timezones
-
-## License
-
-MIT
-
-## Author
-
-[stormsia](https://github.com/stormsia)
+- **Author**: [stormsia](https://github.com/stormsia)
+- **License**: MIT

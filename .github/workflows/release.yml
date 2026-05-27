@@ -60,3 +60,12 @@ jobs:
             dist/WorldClockHud.msi
           draft: false
           generate_release_notes: true
+          append_body: true
+          body: |
+            ## 📥 Download Instructions
+            
+            - 🌟 **Recommended (`.msi`)**: Download **`WorldClockHud.msi`** to easily install the app. The installer automatically configures the clock to run silently on Windows startup and adds a convenient Start Menu shortcut!
+            - 📦 **Portable (`.exe`)**: Download **`WorldClockHud.exe`** if you prefer a standalone version without installation. Just download and run.
+            
+            ---
+
