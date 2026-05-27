@@ -21,9 +21,10 @@ jobs:
         with:
           python-version: "3.14"
 
+      - name: Install uv
+        run: pip install uv
       - name: Install dependencies
-        run: pip install -r requirements.txt
-
+        run: uv pip install -r requirements.txt --system
       - name: Build executable
         run: pyinstaller WorldClockHUD.spec
 
@@ -37,6 +38,10 @@ jobs:
 
       - name: Accept WiX OSMF EULA
         run: wix eula accept wix7
+
+      - name: Install WiX UI Extension
+        run: wix extension add -g WixToolset.UI.wixext
+
 
       - name: Build MSI Installer
         shell: powershell
