@@ -45,7 +45,7 @@ jobs:
           $version = "${{ github.ref_name }}".TrimStart('v')
           if (-not $version) { $version = "1.0.0" } # Заглушка, если запуск не по тегу
 
-          wix build installer\WorldClockHud.wxs -d Version=$version -o dist\WorldClockHud.msi
+          wix build installer\WorldClockHud.wxs -ext WixToolset.UI.wixext -d Version=$version -o dist\WorldClockHud.msi
 
       - name: Upload Release Assets
         uses: softprops/action-gh-release@v2
