@@ -27,6 +27,18 @@ jobs:
       - name: Build executable
         run: pyinstaller WorldClockHUD.spec
 
+      - name: Prepare WiX inputs
+        shell: powershell
+        run: |
+          New-Item -ItemType Directory -Path dist -Force | Out-Null
+          $exe = Get-ChildItem -Path dist -Recurse -Filter 'WorldClockHud.exe' -File -ErrorAction SilentlyContinue | Select-Object -First 1
+          if (-not $exe) {
+            Write-Host "Executable not found in nested dist; listing dist contents for debugging:"; Get-ChildItem -Path dist -Recurse | ForEach-Object { Write-Host $_.FullName }
+            Write-Error "Executable WorldClockHud.exe not found under dist"
+            exit 1
+          }
+          Copy-Item $exe.FullName -Destination (Join-Path $PWD 'dist\WorldClockHud.exe') -Force
+
       - name: Setup .NET (for WiX)
         uses: actions/setup-dotnet@v4
         with:
@@ -39,7 +51,11 @@ jobs:
         run: wix eula accept wix7
 
       - name: Build MSI
-        run: wix build -acceptEula wix7 installer/WorldClockHud.wxs -o dist/WorldClockHud.msi
+        shell: powershell
+        run: |
+          Push-Location installer
+          wix build -acceptEula wix7 WorldClockHud.wxs -o ..\dist\WorldClockHud.msi
+          Pop-Location
 
       - name: Upload Release Assets
         uses: softprops/action-gh-release@v2
